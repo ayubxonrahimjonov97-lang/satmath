@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <h1>{{ question.domain }}</h1>
+
+    <h2>{{ question.question }}</h2>
+
+    {% if is_correct is none %}
+
+        <form method="post">
+
+            <label>
+                <input type="radio" name="answer" value="A">
+                A) {{ question.choice_a }}
+            </label>
+            
+            <br>
+
+            <label>
+                <input type="radio" name="answer" value="B">
+                B) {{ question.choice_b }}
+            </label>
+
+            <br>
+
+            <label>
+                <input type="radio" name="answer" value="C">
+                C) {{ question.choice_c }}
+            </label>
+
+            <br>
+
+            <label>
+                <input type="radio" name="answer" value="D">
+                D) {{ question.choice_d }}
+            </label>
+
+            <br><br>
+
+            <button type="submit">Submit Answer</button>
+
+        </form>
+
+    {% else %}
+
+        {% if is_correct %}
+
+            <h2>Correct!</h2>
+
+        {% else %}
+
+            <h2>Incorrect</h2>
+
+            <p>
+                Correct answer:
+                {{ question.correct_answer }}
+            </p>
+
+        {% endif %}
+
+        <h3>Explanation</h3>
+
+        <p>{{ question.explanation }}</p>
+
+        {% if next_question_id %}
+
+            <a href="{{ url_for('question', question_id=next_question_id) }}">
+                Next Question
+            </a>
+
+       {% else %}
+
+      <h3>You completed this practice session!</h3>
+
+      <a href="{{ url_for('results') }}">View Results</a>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+       {% endif %}
+
+    {% endif %}
+
+{% endblock %}

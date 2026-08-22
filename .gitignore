@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+flask_session/
+.env
+.venv/
+venv/
+satmath.private.db
+

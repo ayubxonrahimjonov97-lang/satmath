@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='styles.css') }}"
+        >
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <title>SATMath</title>
+    </head>
+
+    <body>
+
+        <nav>
+            {% if session["user_id"] %}
+            <a href="{{ url_for('practice') }}">Practice</a>
+            <a href="{{ url_for('logout') }}">Log out</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">Log In</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </nav>
+
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+
+    </body>
+
+</html>

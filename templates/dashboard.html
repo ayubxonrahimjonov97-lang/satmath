@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <h1>Your Dashboard</h1>
+
+    <section class="summary">
+        <div class="card">
+            <h2>Total Questions</h2>
+            <p>{{ total }}</p>
+        </div>
+
+        <div class="card">
+            <h2>Correct Answers</h2>
+            <p>{{ correct }}</p>
+        </div>
+
+        <div class="card">
+            <h2>Accuracy</h2>
+            <p>{{ percentage }}%</p>
+        </div>
+    </section>
+
+    <h2>Performance by Domain</h2>
+
+    {% if domains %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Domain</th>
+                    <th>Correct</th>
+                    <th>Attempted</th>
+                    <th>Accuracy</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for domain in domains %}
+                    <tr>
+                        <td>{{ domain.domain }}</td>
+                        <td>{{ domain.correct }}</td>
+                        <td>{{ domain.total }}</td>
+                        <td>
+                            {{ (domain.correct * 100 / domain.total) | round }}%
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have not answered any questions yet.</p>
+    {% endif %}
+
+    <h2>Recent Attempts</h2>
+
+    {% if recent_attempts %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Domain</th>
+                    <th>Selected</th>
+                    <th>Result</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for attempt in recent_attempts %}
+                    <tr>
+                        <td>{{ attempt.domain }}</td>
+                        <td>{{ attempt.selected_answer }}</td>
+                        <td>
+                            {% if attempt.is_correct %}
+                                Correct
+                            {% else %}
+                                Incorrect
+                            {% endif %}
+                        </td>
+                        <td>{{ attempt.attempted_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}
